@@ -1,0 +1,4 @@
+.kde4/
+*.kde4
+test
+test.c
