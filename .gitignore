@@ -1,4 +1,4 @@
-.kde4/
-*.kde4
+.kdev4/
+*.kdev4
 test
 test.c
