@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -76,5 +78,33 @@ void* hashmap_get(char *key, HashMap *map) {
         }
     }
     return NULL;
+}
+
+void hashmap_remove(char *key, HashMap *map) {
+    uint8_t hash_key = hash_str(key);
+    MapEntryList entry_list = map->data[hash_key];
+    MapEntry *entry = entry_list.first;
+    if (entry == NULL) {
+        return;
+    }
+    MapEntry *previous = NULL;
+    while (1) {
+        MapEntry deref_entry = *entry;
+        char *entry_key = deref_entry.key;
+        if (strcmp(entry_key, key) == 0) {
+            if (previous != NULL) {
+                previous->next = entry->next;
+            } else {
+                entry_list.first = entry->next;
+            }
+            break;
+        }
+        previous = entry;
+        entry = entry->next;
+        if (entry == NULL) {
+            break;
+        }
+    }
+    map->data[hash_key] = entry_list;
 }
 

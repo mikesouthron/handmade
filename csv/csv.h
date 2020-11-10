@@ -2,4 +2,4 @@
 
 typedef struct CSVReader {
 	
-}
+} CSVReader;
