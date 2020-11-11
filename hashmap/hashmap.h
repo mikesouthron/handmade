@@ -22,7 +22,7 @@ typedef struct HashMap {
     MapEntryList data[UINT8_MAX];
 } HashMap;
 
-HashMap new_hashmap() {
+HashMap hashmap_new() {
     HashMap map;
     for (size_t i = 0; i < UINT8_MAX; ++i) {
         MapEntryList entry_list;
