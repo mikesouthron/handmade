@@ -32,7 +32,7 @@ CSVReader csv_newreader(char *filename)
     if ((c == ',' || c == '\n' || c == EOF) && !in_quotes)
     {
       value[str_len] = '\0';
-      hashmap_add(value, index, &header);
+      hashmap_add_int(value, index, &header);
       if (c == '\n' || c == EOF)
       {
         reader.cols = index + 1;
@@ -119,6 +119,6 @@ char **csv_next(CSVReader *reader)
 
 char *csv_row_value(char *col, char **row, CSVReader *csv)
 {
-  int col_idx = (int)hashmap_get(col, csv->headers);
+  int col_idx = hashmap_get_int(col, csv->headers);
   return row[col_idx];
 }

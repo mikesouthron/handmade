@@ -11,6 +11,7 @@ typedef struct MapEntry
 {
     char *key;
     void *value;
+    int int_value;
     struct MapEntry *next;
 } MapEntry;
 
@@ -47,6 +48,27 @@ uint8_t hash_str(char *str)
         hash = hash * FNV_PRIME_32;
     }
     return hash & 0xFF;
+}
+
+void hashmap_add_int(char *key, int value, HashMap *map)
+{
+    uint8_t hash_key = hash_str(key);
+    MapEntry *entry = malloc(sizeof(MapEntry));
+    entry->key = key;
+    entry->int_value = value;
+    entry->next = NULL;
+    MapEntryList entry_list = map->data[hash_key];
+    if (entry_list.first == NULL)
+    {
+        entry_list.first = entry;
+        entry_list.last = entry;
+    }
+    else
+    {
+        entry_list.last->next = entry;
+        entry_list.last = entry;
+    }
+    map->data[hash_key] = entry_list;
 }
 
 void hashmap_add(char *key, void *value, HashMap *map)
@@ -94,6 +116,32 @@ void *hashmap_get(char *key, HashMap *map)
         }
     }
     return NULL;
+}
+
+int hashmap_get_int(char *key, HashMap *map)
+{
+    uint8_t hash_key = hash_str(key);
+    MapEntryList entry_list = map->data[hash_key];
+    MapEntry *entry = entry_list.first;
+    if (entry == NULL)
+    {
+        return 0;
+    }
+    while (1)
+    {
+        MapEntry deref_entry = *entry;
+        char *entry_key = deref_entry.key;
+        if (strcmp(entry_key, key) == 0)
+        {
+            return entry->int_value;
+        }
+        entry = entry->next;
+        if (entry == NULL)
+        {
+            break;
+        }
+    }
+    return 0;
 }
 
 void hashmap_remove(char *key, HashMap *map)
