@@ -6,12 +6,17 @@ int main()
 {
   CSVReader csv = csv_newreader("test.csv");
   char **row = csv_next(&csv);
-  char *value = csv_row_value("col1", row, &csv);
-  printf("%s\n", value);
-  row = csv_next(&csv);
-  if (row == NULL)
+  while (row != NULL)
   {
-    printf("End Of File\n");
+    for (size_t i = 0; i < csv.cols; ++i)
+    {
+      if (i != 0)
+      {
+        printf(",");
+      }
+      printf("%s", row[i]);
+    }
+    row = csv_next(&csv);
   }
   return 0;
 }
