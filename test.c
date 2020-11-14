@@ -1,21 +1,22 @@
 #include "csv/csv.h"
+#include "hashmap/hashmap.h"
 #include <stdio.h>
 
 int main()
 {
-  CSVReader csv = csv_newreader("test.csv");
-  char **row = csv_next(&csv);
-  while (row != NULL)
-  {
-    for (size_t i = 0; i < csv.cols; ++i)
+    CSVReader csv = csv_newreader("test.csv");
+    
+    printf("Cols: %d\n", csv.cols);
+    
+    char **row = csv_next(&csv);
+    int count = 0;
+    while (row != NULL)
     {
-      if (i != 0)
-      {
-        printf(",");
-      }
-      printf("%s", row[i]);
+        ++count;
+        row = csv_next(&csv);
     }
-    row = csv_next(&csv);
-  }
-  return 0;
+    
+    printf("Rows: %d\n", count);
+    
+    return 0;
 }
