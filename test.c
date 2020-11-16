@@ -13,6 +13,11 @@ int main()
     while (row != NULL)
     {
         ++count;
+        for (size_t i = 0; i < csv.cols; ++i)
+        {
+            free(row[i]);
+        }
+        free(row);
         row = csv_next(&csv);
     }
     
