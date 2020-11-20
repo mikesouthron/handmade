@@ -15,7 +15,6 @@ Example applications to end with:
 Exmaples of libraries:
 - HashMap
 - CSV Parser/Writer
-- JSON Parser/Writer
 - etc.
 
 There are 2 things I won't be doing:
@@ -58,4 +57,6 @@ I may write a generic handler that uses a HashMap to simply shove the entire JSO
 
 JSON output is not done yet, but this is actually an easier task to do on a struct by struct basis (if your data is simple and flat) you just write a function that builds up a string.
 
-An alternative to JSON is a custom string or binary based system, where data is just sent up as a delemited data that both ends know how to handle, the disadvantage of this is: Custom Javascript for parsing a handwritten format may be slower than JSON.parse() and it isn't as easy for a human to read (the real reason JSON is popular).
+An alternative to JSON is a custom string or binary format, where data is just sent up as a delemited data that both ends know how to handle, the disadvantage of this is: Custom Javascript for parsing a handwritten format may be slower than JSON.parse() and it isn't as easy for a human to read (the real reason JSON is popular).
+
+If I needed complex JSON parsing, I expect I would have to leave the 'handmade' philosophy behind and use the jansson library, it is a library with a decent API and no extra dependecies, it is fairly easy to just include the source in an application and compile it.

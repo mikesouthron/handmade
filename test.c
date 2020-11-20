@@ -7,6 +7,7 @@
 typedef struct TestStruct {
     char* name;
     uint8_t age;
+    int* things;
 } TestStruct;
 
 TestStruct parse_test_struct_json(char* json_string) {
@@ -102,7 +103,7 @@ TestStruct parse_test_struct_json(char* json_string) {
 }
 
 int main() {
-    char* json_string = "{\"name\": \"Mike\", \"age\": 35}";
+    char* json_string = "{\"name\": \"Mike\", \"age\": 35, \"things\":[1,2,3,4,5]}";
     TestStruct test = parse_test_struct_json(json_string);
     printf("Name: %s, Age: %d", test.name, test.age);
     return 0;
