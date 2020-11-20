@@ -47,3 +47,15 @@ Using FNV-1a for it's hashing function.
 CSVReader header library.
 
 Has a nice feature where the header goes into a HashMap char* -> int.
+
+## JSON
+
+JSON parsing is currently done as a one off parse for individual structs, copying the example code to get started.
+This is laborious, but frankly JSON is a crap transfer format and I would only ever use it for web type communication as JavaScript can natively handle it.
+In this scenario I would aim to keep my JSON small and simple, preferring server side rendering for as much as possible, and JSON only as and when it was needed for limited async work.
+
+I may write a generic handler that uses a HashMap to simply shove the entire JSON object into memory, but this doesn't allow for static typing or validation of the data.
+
+JSON output is not done yet, but this is actually an easier task to do on a struct by struct basis (if your data is simple and flat) you just write a function that builds up a string.
+
+An alternative to JSON is a custom string or binary based system, where data is just sent up as a delemited data that both ends know how to handle, the disadvantage of this is: Custom Javascript for parsing a handwritten format may be slower than JSON.parse() and it isn't as easy for a human to read (the real reason JSON is popular).
