@@ -2,5 +2,5 @@
 
 mkdir build
 pushd build
-cl -Zi ..\test.c
+cl -Zi ..\win32_window.cpp /link user32.lib
 popd
