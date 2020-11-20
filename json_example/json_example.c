@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdlib.h>
-
 typedef struct TestStruct {
     char* name;
     uint8_t age;
@@ -30,13 +24,15 @@ TestStruct parse_test_struct_json(char* json_string) {
         
         if (c == '{') {
             if (in_value) {
-                //TODO: Handle inner object if needed...
+                //TODO: Handle inner object if needed, create further functions to handle parsing of inner objects
+                //TODO: Prefer simple objects without tons of nesting to make parsing faster and easier
             }
         } else if (c == ',' || c == '}') {
             value[value_len++] = '\0';
             
             printf("Key: %s, Value %s\n", key, value);
             
+            //TODO: Handle filled in key, value example:
             if (strcmp(key, "name") == 0) {
                 t.name = value;
             } else if (strcmp(key, "age") == 0) {
@@ -100,11 +96,3 @@ TestStruct parse_test_struct_json(char* json_string) {
     }
     return t;
 }
-
-int main() {
-    char* json_string = "{\"name\": \"Mike\", \"age\": 35}";
-    TestStruct test = parse_test_struct_json(json_string);
-    printf("Name: %s, Age: %d", test.name, test.age);
-    return 0;
-}
-
